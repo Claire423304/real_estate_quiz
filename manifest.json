@@ -1,0 +1,22 @@
+{
+  "short_name": "不動產題庫",
+  "name": "不動產經紀人題庫 Pro",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "index.html",
+  "background_color": "#f8f9fa",
+  "display": "standalone",
+  "scope": "./",
+  "theme_color": "#2d5af0",
+  "description": "具備 UUID 指紋識別與 Notion 整合功能的專業不動產考典。"
+}
