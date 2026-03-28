@@ -2,60 +2,64 @@
 <html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>不動產題庫 Pro</title>
     
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#2d5af0">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="不動產題庫">
     <link rel="apple-touch-icon" href="icon-192.png">
-    
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 
     <style>
         :root { 
-            --primary: #2d5af0; --success: #4cd964; --danger: #ef4444; 
+            --primary: #2d5af0; --success: #4cd964; --danger: #ef4444; --warning: #f59e0b; 
             --bg: #f8f9fa; --white: #ffffff; --text: #1f2937;
             --ai-btn-gradient: linear-gradient(90deg, #4facfe, #8c52ff, #fbc2eb);
         }
-        body { 
-            font-family: "PingFang TC", "Microsoft JhengHei", sans-serif; 
-            background-color: var(--bg); margin: 0; padding: 15px; color: var(--text);
-            -webkit-tap-highlight-color: transparent;
-            -webkit-user-select: none; /* 防止誤觸選取 */
-            padding-top: env(safe-area-inset-top);
-            padding-bottom: env(safe-area-inset-bottom);
-        }
-        .container { max-width: 800px; margin: 0 auto; }
-        .card { background: var(--white); padding: 20px; border-radius: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.05); }
-        
-        /* UI 元件 */
-        .header-title { text-align: center; font-size: 1.5em; font-weight: bold; margin-bottom: 20px; }
-        .mastery-box { background: #e0f2fe; padding: 12px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; font-size: 0.9em; color: #0369a1; margin-bottom: 15px; }
-        .admin-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
-        .btn-small { background: #fff; border: 1px solid #ddd; padding: 8px; border-radius: 10px; font-size: 0.8em; cursor: pointer; }
-        
-        .wrong-panel { background: #fef2f2; border: 1px solid #fee2e2; border-radius: 15px; padding: 15px; margin-bottom: 20px; }
-        .export-btns { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin: 10px 0; }
-        .btn-export { background: #fff; border: 1px solid #fecaca; color: #dc2626; padding: 6px; border-radius: 8px; font-size: 0.75em; cursor: pointer; }
-        
-        .setting-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 15px; }
-        .u-select { height: 40px; border-radius: 10px; border: 1px solid #ddd; text-align: center; font-size: 0.85em; }
-        
-        .btn-start { width: 100%; height: 55px; background: #0f172a; color: white; border: none; border-radius: 15px; font-size: 1.1em; font-weight: bold; cursor: pointer; }
+        body { font-family: "PingFang TC", "Microsoft JhengHei", sans-serif; background-color: #f8f9fa; margin: 0; padding: 20px; color: var(--text); -webkit-tap-highlight-color: transparent; }
+        .container { max-width: 850px; margin: 0 auto; }
+        .card { background: var(--white); padding: 35px; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .btn { cursor: pointer; border: none; font-weight: bold; transition: 0.2s; display: inline-flex; align-items: center; justify-content: center; }
 
-        /* 答題畫面 */
+        /* --- 原版經典首頁元件 --- */
+        .mastery-box { background: #e0f2fe; padding: 15px 20px; border-radius: 12px; margin-bottom: 20px; font-size: 0.9em; color: #0369a1; display: flex; justify-content: space-between; align-items: center; }
+        .header-title { text-align: center; font-size: 1.8em; margin-bottom: 25px; font-weight: bold; }
+        .admin-btns { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 30px; }
+        .btn-outline { background: white; border: 1px solid #ddd; padding: 10px; border-radius: 10px; font-size: 0.85em; color: #444; }
+
+        .wrong-panel { background: #fef2f2; border: 1px solid #fee2e2; border-radius: 18px; padding: 25px; margin-bottom: 30px; }
+        .export-group { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-top: 15px; }
+        .btn-export { background: #fff; border: 1px solid #fecaca; color: #dc2626; padding: 10px; border-radius: 10px; font-size: 0.85em; }
+        .btn-wrong-start { width: 100%; background: var(--danger); color: white; padding: 18px; border-radius: 14px; font-size: 1.1em; margin-top: 15px; }
+
+        .label-text { font-size: 0.95em; color: #6b7280; margin-bottom: 12px; display: block; font-weight: bold; }
+        .setting-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 25px; }
+        .unified-control { height: 45px; width: 100%; border: 1px solid #e5e7eb; border-radius: 14px; font-size: 1em; font-weight: bold; background: #fff; display: flex; align-items: center; justify-content: center; }
+        select.unified-control { appearance: none; text-align-last: center; cursor: pointer; }
+        .count-opt { cursor: pointer; color: #4b5563; }
+        .count-opt.active { background-color: var(--primary); color: #fff; border-color: var(--primary); }
+        .btn-main-start { width: 100%; height: 70px; background: #0f172a; color: white; border-radius: 18px; font-size: 1.3em; margin-top: 20px; }
+
+        /* --- 答題畫面經典視覺 --- */
         #quiz-area { display: none; }
-        .q-text { font-size: 1.15em; font-weight: bold; line-height: 1.6; margin-bottom: 20px; -webkit-user-select: text; }
-        .opt-btn { width: 100%; text-align: left; padding: 15px; border: 1px solid #f0f0f0; border-radius: 12px; background: #fff; margin-bottom: 10px; display: flex; align-items: center; gap: 10px; font-size: 1em; cursor: pointer; }
-        .opt-btn.correct { background: #e8f9ed; border-color: var(--success); color: #1e6332; }
-        .opt-btn.wrong { background: #fff2f2; border-color: var(--danger); color: #a92019; }
-        
-        #res-pill { padding: 15px; border-radius: 12px; color: #fff; text-align: center; margin-top: 15px; font-weight: bold; }
+        .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .status-group { display: flex; gap: 12px; }
+        .pill { padding: 6px 18px; border-radius: 20px; font-size: 0.9em; font-weight: bold; }
+        .pill-dark { background: #374151; color: white; }
+        .pill-timer { background: #fef2f2; color: #ef4444; }
+
+        .question-text { font-size: 1.4em; font-weight: bold; line-height: 1.6; margin-bottom: 40px; color: #111827; -webkit-user-select: text; }
+        .opt-btn { width: 100%; text-align: left; padding: 22px 30px; border: none; border-radius: 20px; background: white; margin-bottom: 18px; font-size: 1.15em; display: flex; align-items: center; gap: 30px; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 12px rgba(0,0,0,0.03); color: #374151; }
+        .opt-btn.correct { background: #e8f9ed; color: #1e6332; }
+        .opt-btn.wrong { background: #fff2f2; color: #a92019; }
+
+        .res-pill { border-radius: 18px; padding: 20px; color: white; text-align: center; }
+        .btn-next { width: 100%; background: var(--primary); color: white; padding: 22px; border-radius: 20px; font-size: 1.2em; font-weight: bold; margin-top: 20px; }
     </style>
 </head>
 <body>
+
 
 <div class="container">
     <div id="home-area">
@@ -119,9 +123,7 @@
 
             <button class="btn btn-main-start" onclick="startNewTest()">🚀 開始練習</button>
         </div>
-    </div>
-
-    <div id="quiz-area">
+    </div>    <div id="quiz-area">
         <div class="top-bar">
             <button class="btn btn-pause" onclick="pauseAndSave()">
                 <span style="color:#d97706">❚❚</span> 暫停離開
